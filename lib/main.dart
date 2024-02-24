@@ -1,4 +1,7 @@
 import 'dart:ui';
+import 'package:flavr/features/outlet_menu/presentation/screens/OutletMenu.dart';
+import 'package:flavr/features/outlets_list_page/presentation/screens/outlets_lists.dart';
+import 'package:flavr/pages/profile_page/ProfiePage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +13,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
+import 'core/CartChangeProvider.dart';
+import 'core/data_provider/core_api_provider.dart';
+import 'core/data_provider/core_storage_provider.dart';
+import 'core/repository/core_cart_repository.dart';
+import 'features/cart/bloc/cart_bloc.dart';
+import 'features/cart/data/data_providers/cart_api_provider.dart';
+import 'features/cart/data/repository/cart_repository.dart';
 import 'features/google_sign_in/bloc/sign_in_with_google_bloc.dart';
 import 'features/google_sign_in/presentation/screens/sign_in_with_google.dart';
 import 'features/login_page/bloc/login_bloc.dart';
@@ -20,6 +30,14 @@ import 'features/login_page/presentation/screens/login_page.dart';
 import 'features/otp_screen/bloc/otp_screen_bloc.dart';
 import 'features/otp_screen/data/data_provider/otp_api_provider.dart';
 import 'features/otp_screen/data/repository/otp_repository.dart';
+import 'features/outlet_menu/bloc/outlet_menu_bloc.dart';
+import 'features/outlet_menu/data/data_provider/outlet_menu_api_provider.dart';
+import 'features/outlet_menu/data/data_provider/outlet_menu_storage_provider.dart';
+import 'features/outlet_menu/data/repository/outlet_menu_repository.dart';
+import 'features/outlets_list_page/bloc/outlet_list_bloc.dart';
+import 'features/outlets_list_page/data/data_provider/outlet_list_api_provider.dart';
+import 'features/outlets_list_page/data/data_provider/outlet_list_storage_provider.dart';
+import 'features/outlets_list_page/data/repository/outlet_list_repository.dart';
 import 'features/signup/bloc/signup_bloc.dart';
 import 'features/signup/data/data_provider/signup_api_provider.dart';
 import 'features/signup/presentation/screens/sign_up.dart';
@@ -79,50 +97,99 @@ class _MyAppState extends State<MyApp> {
 
     return Provider<http.Client>(
         create: (context) => client,
-        child: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider(
-              create: (context) => SplashScreenRepository(),
-            ),
-            RepositoryProvider(
-              create: (context) => LoginRepository(
-                LoginApiProvider(context.read<http.Client>()),
-                LoginSecureStorageProvider(),
-              ),
-            ),
-            RepositoryProvider(
-                create: (context) =>
-                    SignupApiProvider(context.read<http.Client>())),
-            RepositoryProvider(
-              create: (context) => OtpRepository(
-                OtpApiProvider(
-                  context.read<http.Client>(),
-                ),
-              ),
-            ),
-          ],
-          child: MultiBlocProvider(
+        child: ChangeNotifierProvider(
+          create: (context) => CartChangeProvider(),
+          child: MultiRepositoryProvider(
             providers: [
-              BlocProvider(
-                create: (context) => SplashScreenBloc(
-                    context.read<SplashScreenRepository>(),
-                    context.read<http.Client>()),
-              ),
-              BlocProvider(create: (context) => SignInWithGoogleBloc()),
-              BlocProvider(
-                create: (context) => LoginBloc(context.read<LoginRepository>()),
-              ),
-              BlocProvider(
-                create: (context) => SignupBloc(
-                  context.read<SignupApiProvider>(),
+              RepositoryProvider(
+                create: (context) => CoreCartRepository(
+                  CoreStorageProvider(),
+                  CoreApiProvider(
+                    context.read<http.Client>(),
+                  ),
                 ),
               ),
-              BlocProvider(
-                create: (context) =>
-                    OtpScreenBloc(context.read<OtpRepository>()),
+              RepositoryProvider(
+                create: (context) => SplashScreenRepository(),
+              ),
+              RepositoryProvider(
+                create: (context) => LoginRepository(
+                  LoginApiProvider(context.read<http.Client>()),
+                  LoginSecureStorageProvider(),
+                ),
+              ),
+              RepositoryProvider(
+                  create: (context) =>
+                      SignupApiProvider(context.read<http.Client>(),
+                      ),
+              ),
+              RepositoryProvider(
+                create: (context) => OtpRepository(
+                  OtpApiProvider(
+                    context.read<http.Client>(),
+                  ),
+                ),
+              ),
+              RepositoryProvider(
+                create: (context) => OutletListRepository(
+                  OutletListStorageProvider(),
+                  OutletListApiProvider(context.read<http.Client>()),
+                ),
+              ),
+              RepositoryProvider(
+                create: (context) => OutletMenuRepository(
+                  OutletMenuApiProvider(context.read<http.Client>()),
+                  OutletMenuStorageProvider(),
+                ),
+              ),
+              RepositoryProvider(
+                create: (context) => CartRepository(
+                  context.read<CoreCartRepository>(),
+                  CartApiProvider(
+                    context.read<Client>(),
+                  ),
+                ),
               ),
             ],
-            child: _app(),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => SplashScreenBloc(
+                      context.read<SplashScreenRepository>(),
+                      context.read<http.Client>()),
+                ),
+                BlocProvider(create: (context) => SignInWithGoogleBloc()),
+                BlocProvider(
+                  create: (context) => LoginBloc(context.read<LoginRepository>()),
+                ),
+                BlocProvider(
+                  create: (context) => SignupBloc(
+                    context.read<SignupApiProvider>(),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      OtpScreenBloc(context.read<OtpRepository>()),
+                ),
+                BlocProvider(
+                  create: (context) => OutletListBloc(
+                    context.read<OutletListRepository>(),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => OutletMenuBloc(
+                      context.read<OutletMenuRepository>(),
+                      context.read<CoreCartRepository>()),
+                ),
+                BlocProvider(
+                  create: (context) => CartBloc(
+                      context.read<CoreCartRepository>(),
+                      context.read<CartRepository>(),
+                  ),
+                )
+              ],
+              child: _app(),
+            ),
           ),
         ));
   }
@@ -140,6 +207,9 @@ class _MyAppState extends State<MyApp> {
         "/signInWithGoogle": (context) => const SignInWithGoogle(),
         "/login": (context) => const LoginPage(),
         "/signUp": (context) => const SignUp(),
+        "/outletList": (context) => const OutletsList(),
+        "/outletMenu": (context) => const OutletMenu(),
+        "/profile": (context) => const ProfilePage(),
       },
     );
   }

@@ -44,7 +44,7 @@ class _SignInWithGoogleState extends State<SignInWithGoogle> {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFFFFFFF),
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

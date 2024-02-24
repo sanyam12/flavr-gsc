@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: GoogleFonts.poppinsTextTheme(),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white)),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/signInWithGoogle",
+      initialRoute: "/splashscreen",
       routes: {
         "/splashscreen": (context) => const SplashScreen(),
         "/signInWithGoogle": (context) => const SignInWithGoogle(),

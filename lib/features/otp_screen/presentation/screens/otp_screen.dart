@@ -36,6 +36,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: BlocConsumer<OtpScreenBloc, OtpScreenState>(
           listener: (context, state) {

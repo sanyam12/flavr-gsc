@@ -12,7 +12,12 @@
           "package_name": "com.example.flavr"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "860979148352-s4k9ukibimdqsdjsr7k786t1sus26a68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAa4Gy8r4wyz6AOmqtG3qkflOZHHPtATQE"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860979148352-s4k9ukibimdqsdjsr7k786t1sus26a68.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "860979148352-o5ui3gb811m1kur4tp5p0q1ocb9t0jop.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flavr"
+              }
+            }
+          ]
         }
       }
     }

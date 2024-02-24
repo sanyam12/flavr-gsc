@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '860979148352',
     projectId: 'flavr-hack',
     storageBucket: 'flavr-hack.appspot.com',
+    iosClientId: '860979148352-o5ui3gb811m1kur4tp5p0q1ocb9t0jop.apps.googleusercontent.com',
     iosBundleId: 'com.example.flavr',
   );
 }

@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     final height = queryData.size.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, LoginState state) {

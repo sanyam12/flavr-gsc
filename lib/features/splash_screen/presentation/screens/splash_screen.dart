@@ -37,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             Center(

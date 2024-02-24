@@ -28,13 +28,13 @@ class _LoginPageState extends State<LoginPage> {
     final height = queryData.size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, LoginState state) {
             if (state is LoginSuccessful) {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil("/outletMenu", (route) => false);
+                  .pushNamedAndRemoveUntil("/outletList", (route) => false);
             }
             if (state is LoginFailed) {
               ScaffoldMessenger.of(context).showSnackBar(

@@ -53,7 +53,6 @@ class _SignUpState extends State<SignUp> {
     final width = queryData.size.width;
     final height = queryData.size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: BlocConsumer<SignupBloc, SignupState>(
           listener: (context, SignupState state) {

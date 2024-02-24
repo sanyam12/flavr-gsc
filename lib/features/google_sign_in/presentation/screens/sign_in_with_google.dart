@@ -40,11 +40,11 @@ class _SignInWithGoogleState extends State<SignInWithGoogle> {
               .showSnackBar(SnackBar(content: Text(state.message)));
         }
         if (state is GoogleLoginSuccess) {
-          Navigator.of(context).pushNamedAndRemoveUntil("/outletMenu", (route)=>false);
+          Navigator.of(context).pushNamedAndRemoveUntil("/outletList", (route)=>false);
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFFFFFFF),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -54,10 +54,12 @@ class _SignInWithGoogleState extends State<SignInWithGoogle> {
                   height: height,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 0.02375 * height),
+                  padding: EdgeInsets.symmetric(vertical: 0.04375 * height),
                   child: SizedBox(
                     width: 0.75 * width,
-                    child: const Heading(text: "Good food is just a click away"),
+                    child: const FittedBox(
+                      child: Heading(text: "Good food is just a click away"),
+                    ),
                   ),
                 ),
                 Padding(

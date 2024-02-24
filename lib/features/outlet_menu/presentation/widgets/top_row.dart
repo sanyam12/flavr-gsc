@@ -57,12 +57,17 @@ class TopRow extends StatelessWidget {
         ),
         Row(
           children: [
-            Padding(
-              padding: EdgeInsets.only(right: 0.03 * width),
-              child: SvgPicture.asset(
-                "assets/svg/skillet.svg",
-                width: 32,
-                height: 32,
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, "/order_list");
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: 0.03 * width),
+                child: SvgPicture.asset(
+                  "assets/svg/skillet.svg",
+                  width: 32,
+                  height: 32,
+                ),
               ),
             ),
             InkWell(

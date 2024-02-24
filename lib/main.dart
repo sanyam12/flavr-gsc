@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flavr/features/orders_list/presentation/screens/orders_list.dart';
 import 'package:flavr/features/outlet_menu/presentation/screens/OutletMenu.dart';
 import 'package:flavr/features/outlets_list_page/presentation/screens/outlets_lists.dart';
 import 'package:flavr/pages/profile_page/ProfiePage.dart';
@@ -27,6 +28,7 @@ import 'features/login_page/data/data_provider/login_api_provider.dart';
 import 'features/login_page/data/data_provider/login_secure_storage_provider.dart';
 import 'features/login_page/data/repository/login_repository.dart';
 import 'features/login_page/presentation/screens/login_page.dart';
+import 'features/orders_list/bloc/orders_list_bloc.dart';
 import 'features/otp_screen/bloc/otp_screen_bloc.dart';
 import 'features/otp_screen/data/data_provider/otp_api_provider.dart';
 import 'features/otp_screen/data/repository/otp_repository.dart';
@@ -119,9 +121,9 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               RepositoryProvider(
-                  create: (context) =>
-                      SignupApiProvider(context.read<http.Client>(),
-                      ),
+                create: (context) => SignupApiProvider(
+                  context.read<http.Client>(),
+                ),
               ),
               RepositoryProvider(
                 create: (context) => OtpRepository(
@@ -160,7 +162,8 @@ class _MyAppState extends State<MyApp> {
                 ),
                 BlocProvider(create: (context) => SignInWithGoogleBloc()),
                 BlocProvider(
-                  create: (context) => LoginBloc(context.read<LoginRepository>()),
+                  create: (context) =>
+                      LoginBloc(context.read<LoginRepository>()),
                 ),
                 BlocProvider(
                   create: (context) => SignupBloc(
@@ -183,10 +186,13 @@ class _MyAppState extends State<MyApp> {
                 ),
                 BlocProvider(
                   create: (context) => CartBloc(
-                      context.read<CoreCartRepository>(),
-                      context.read<CartRepository>(),
+                    context.read<CoreCartRepository>(),
+                    context.read<CartRepository>(),
                   ),
-                )
+                ),
+                BlocProvider(
+                  create: (context) => OrdersListBloc(),
+                ),
               ],
               child: _app(),
             ),
@@ -210,6 +216,7 @@ class _MyAppState extends State<MyApp> {
         "/outletList": (context) => const OutletsList(),
         "/outletMenu": (context) => const OutletMenu(),
         "/profile": (context) => const ProfilePage(),
+        "/order_list": (context) => const OrdersList(),
       },
     );
   }

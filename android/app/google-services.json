@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860979148352",
+    "project_id": "flavr-hack",
+    "storage_bucket": "flavr-hack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860979148352:android:3933f0252c3d59a9a5d1a5",
+        "android_client_info": {
+          "package_name": "com.example.flavr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa4Gy8r4wyz6AOmqtG3qkflOZHHPtATQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
